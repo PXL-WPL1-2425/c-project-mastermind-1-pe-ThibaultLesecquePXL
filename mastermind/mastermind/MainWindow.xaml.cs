@@ -131,6 +131,11 @@ namespace mastermind
         {
             TimeSpan elapsed = DateTime.Now - startTime;
             timerLabel.Content = elapsed.ToString(@"ss");
+
+            if (elapsed.TotalSeconds > 11)
+            {
+                StopCountdown();
+            }
         }
 
         private void StartCountdown()
@@ -140,6 +145,13 @@ namespace mastermind
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
             startTime = DateTime.Now;
+        }
+
+        private void StopCountdown()
+        {
+            timer.Stop();
+            UpdateAttempts();
+            StartCountdown();
         }
     }
 }
