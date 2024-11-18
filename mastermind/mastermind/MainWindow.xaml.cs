@@ -39,7 +39,7 @@ namespace mastermind
                 colorsRandom[i] = rnd.Next(1, 6);
             }
 
-            this.Title = $"Mastermind ({colorSelectionString[colorsRandom[0]]}, {colorSelectionString[colorsRandom[1]]}, {colorSelectionString[colorsRandom[2]]}, {colorSelectionString[colorsRandom[3]]})";
+            debugTextBox.Text = $"Oplossing: ({colorSelectionString[colorsRandom[0]]}, {colorSelectionString[colorsRandom[1]]}, {colorSelectionString[colorsRandom[2]]}, {colorSelectionString[colorsRandom[3]]})";
         }
 
         private void ComboBoxItemsInit()
@@ -70,7 +70,6 @@ namespace mastermind
             {
                 color4Ellipse.Fill = colorSelection[comboBox.SelectedIndex];
             }
-            
         }
 
         private void CheckButton_Click(object sender, RoutedEventArgs e)
@@ -103,6 +102,23 @@ namespace mastermind
         {
             attempts += 1;
             this.Title = $"Poging {attempts}";
+        }
+
+        private void debugButton_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleDebug();
+        }
+
+        private void ToggleDebug()
+        {
+            if (debugTextBox.Visibility == Visibility.Hidden)
+            {
+                debugTextBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                debugTextBox.Visibility = Visibility.Hidden;
+            }
         }
     }
 }
