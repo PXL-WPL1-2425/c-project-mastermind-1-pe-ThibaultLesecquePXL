@@ -22,14 +22,17 @@ namespace mastermind
         string[] colorSelectionString = ["Red", "Blue", "Green", "White", "Yellow", "Orange"];
         int[] colorsRandom = new int[4];
 
+        int attempts = 0;
+
         public MainWindow()
         {
             InitializeComponent();
-            pickColors();
-            comboBoxItemsInit();
+            PickColors();
+            ComboBoxItemsInit();
+            UpdateAttempts();
         }
 
-        private void pickColors()
+        private void PickColors()
         {
             for (int i = 0; i < colorsRandom.Length; i++)
             {
@@ -39,7 +42,7 @@ namespace mastermind
             this.Title = $"Mastermind ({colorSelectionString[colorsRandom[0]]}, {colorSelectionString[colorsRandom[1]]}, {colorSelectionString[colorsRandom[2]]}, {colorSelectionString[colorsRandom[3]]})";
         }
 
-        private void comboBoxItemsInit()
+        private void ComboBoxItemsInit()
         {
             color1ComboBox.ItemsSource = colorSelectionString;
             color2ComboBox.ItemsSource = colorSelectionString;
@@ -50,7 +53,6 @@ namespace mastermind
         private void ComboBox_SelectionChanged (object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-
 
             if (comboBox.Name == "color1ComboBox")
             {
@@ -71,8 +73,9 @@ namespace mastermind
             
         }
 
-        private void checkButton_Click(object sender, RoutedEventArgs e)
+        private void CheckButton_Click(object sender, RoutedEventArgs e)
         {
+            UpdateAttempts();
             CheckComboBox(color1Ellipse, color1ComboBox, 0);
             CheckComboBox(color2Ellipse, color2ComboBox, 1);
             CheckComboBox(color3Ellipse, color3ComboBox, 2);
@@ -94,6 +97,12 @@ namespace mastermind
                 elipse.Stroke = Brushes.Wheat;
                 elipse.StrokeThickness = 5;
             }
+        }
+
+        private void UpdateAttempts()
+        {
+            attempts += 1;
+            this.Title = $"Poging {attempts}";
         }
     }
 }
