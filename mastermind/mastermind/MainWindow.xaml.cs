@@ -115,6 +115,10 @@ namespace mastermind
             ToggleDebug();
         }
 
+        /// <summary>
+        /// De ToggleDebug functie togglet tussen het wel en niet
+        /// tonen van een textbox met daarin de willekeurig gegenereerde oplossing
+        /// </summary>
         private void ToggleDebug()
         {
             if (debugTextBox.Visibility == Visibility.Hidden)
@@ -138,6 +142,10 @@ namespace mastermind
             }
         }
 
+        /// <summary>
+        /// De StartCountdown functie start een secondenteller die
+        /// zal tellen vanaf 0 en door zal lopen tot 10
+        /// </summary>
         private void StartCountdown()
         {
             timerLabel.Content = "00";
@@ -147,6 +155,12 @@ namespace mastermind
             startTime = DateTime.Now;
         }
 
+        /// <summary>
+        /// <para>De StopCountdown functie stopt de secondenteller en
+        /// zal deze opnieuw laten starten.</para>
+        /// <para> Na het stoppen van de voorgaande teller zal ook
+        /// de UpdateAttempts functie aangeroepen worden.</para>
+        /// </summary>
         private void StopCountdown()
         {
             timer.Stop();
