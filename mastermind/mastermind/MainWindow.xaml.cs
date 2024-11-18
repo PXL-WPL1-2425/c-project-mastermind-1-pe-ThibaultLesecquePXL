@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace mastermind
 {
@@ -24,12 +25,16 @@ namespace mastermind
 
         int attempts = 0;
 
+        DispatcherTimer timer = new DispatcherTimer();
+        DateTime startTime;
+
         public MainWindow()
         {
             InitializeComponent();
             PickColors();
             ComboBoxItemsInit();
             UpdateAttempts();
+            StartCountdown();
         }
 
         private void PickColors()
@@ -75,6 +80,7 @@ namespace mastermind
         private void CheckButton_Click(object sender, RoutedEventArgs e)
         {
             UpdateAttempts();
+            StartCountdown();
             CheckComboBox(color1Ellipse, color1ComboBox, 0);
             CheckComboBox(color2Ellipse, color2ComboBox, 1);
             CheckComboBox(color3Ellipse, color3ComboBox, 2);
@@ -119,6 +125,21 @@ namespace mastermind
             {
                 debugTextBox.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            TimeSpan elapsed = DateTime.Now - startTime;
+            timerLabel.Content = elapsed.ToString(@"ss");
+        }
+
+        private void StartCountdown()
+        {
+            timerLabel.Content = "00";
+            timer.Tick += Timer_Tick;
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
+            startTime = DateTime.Now;
         }
     }
 }
